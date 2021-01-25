@@ -31,10 +31,15 @@ describe("Gilded Rose", function () {
     expect(items[0].quality).toBe(11);
   });
 
-  it("'Sulfuras', being a legendary item, never has to be sold or decreases in Quality", function () {
+  it("quality is capped at 50 -brie", function () {
+    const gildedRose = new Shop([new Item("Aged Brie", 10, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(50);
+  });
+
+  it("Sulfuras, being a legendary item, never has to be sold or decreases in Quality", function () {
     const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 10, 20)]);
     const items = gildedRose.updateQuality();
-    expect(items[0].sellIn).toBe(10);
     expect(items[0].quality).toBe(20);
   });
 
@@ -43,6 +48,13 @@ describe("Gilded Rose", function () {
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(12);
   });
+
+  it("quality is capped at 50 - passes", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 5, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(50);
+  });
+
   it("passes, increase in quality by 3 in five days", function () {
     const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10)]);
     const items = gildedRose.updateQuality();
