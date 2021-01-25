@@ -1,6 +1,12 @@
 const { Shop, Item } = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
+  it("has empty shop by default", function () {
+    const gildedRose = new Shop();
+    const items = gildedRose.updateQuality();
+    expect(Array.isArray(items)).toBeTruthy();
+  });
+
   it("should lower the quality by 1", function () {
     const gildedRose = new Shop([new Item("foo", 10, 10)]);
     const items = gildedRose.updateQuality();
@@ -29,6 +35,12 @@ describe("Gilded Rose", function () {
     const gildedRose = new Shop([new Item("Aged Brie", 10, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(11);
+  });
+
+  it("Aged Brie increases in quality twice, past sell in", function () {
+    const gildedRose = new Shop([new Item("Aged Brie", 0, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(12);
   });
 
   it("quality is capped at 50 -brie", function () {
