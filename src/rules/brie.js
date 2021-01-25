@@ -1,11 +1,11 @@
-const { updateQuality } = require("./updateQuality");
+const { limitQuality } = require("./limitQuality");
 
 function brie(item) {
   if (item.sellIn < 0) {
-    return updateQuality(item.quality + 2)
+    return limitQuality(item.quality + 2)
   }
 
-  return updateQuality(item.quality + 1)
+  return limitQuality(item.quality + 1)
 }
 
 exports.brie = brie;
