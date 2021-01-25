@@ -1,11 +1,12 @@
 const { updateQuality } = require("./updateQuality");
 
-function brie(item) {
-  if (item.sellIn < 0) {
-    return updateQuality(item.quality + 2)
-  }
+const overdueModifier = {
+  true: +2,
+  false: +1,
+};
 
-  return updateQuality(item.quality + 1)
+function brie(item) {
+  return updateQuality(item.quality + overdueModifier[item.sellIn < 0]);
 }
 
 exports.brie = brie;

@@ -1,12 +1,12 @@
 const { updateQuality } = require("./updateQuality");
 
+const overdueModifier = {
+  true: -4,
+  false: -2,
+};
+
 function conjured(item) {
-  if (item.sellIn < 0) {
-    return updateQuality(item.quality - 4);
-  }
-
-  return updateQuality(item.quality - 2);
-
+  return updateQuality(item.quality + overdueModifier[item.sellIn < 0]);
 }
 
 exports.conjured = conjured;
