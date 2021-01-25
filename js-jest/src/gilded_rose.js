@@ -13,21 +13,25 @@ class Item {
 }
 
 const rules = {
-  "Aged Brie" : brie,
-  "Conjured Mana Cake" : conjured,
+  "Aged Brie": brie,
+  "Conjured Mana Cake": conjured,
   "Backstage passes to a TAFKAL80ETC concert": backstagePasses,
-  "Sulfuras, Hand of Ragnaros": legendary
-}
+  "Sulfuras, Hand of Ragnaros": legendary,
+};
 
 class Shop {
   constructor(items = []) {
     this.items = items;
   }
-  
+
   updateQuality() {
-    for(const item of this.items) {
-      const rule = rules[item.name] ?? regular
+    for (const item of this.items) {
+      item.sellIn--;
+
+      const rule = rules[item.name] ?? regular;
       rule(item);
+
+      item.quality = Math.max(item.quality, 0);
     }
     return this.items;
   }
