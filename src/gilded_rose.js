@@ -19,19 +19,23 @@ const rules = {
   "Sulfuras, Hand of Ragnaros": legendary,
 };
 
+function updateItem({ name, quality, sellIn }) {
+  const rule = rules[name] ?? regular;
+
+  return {
+    name,
+    quality: rule({ quality, sellIn: sellIn - 1 }),
+    sellIn: sellIn - 1,
+  };
+}
+
 class Shop {
   constructor(items = []) {
     this.items = items;
   }
 
   updateQuality() {
-    for (const item of this.items) {
-      item.sellIn--;
-
-      const rule = rules[item.name] ?? regular;
-      item.quality = rule(item);
-    }
-    return this.items;
+    return this.items.map(updateItem);
   }
 }
 
