@@ -1,9 +1,12 @@
-function conjured(item) {
-  item.quality = item.quality - 2;
+const { updateQuality } = require("./updateQuality");
 
+function conjured(item) {
   if (item.sellIn < 0) {
-    item.quality = item.quality - 2;
+    return updateQuality(item.quality - 4);
   }
+
+  return updateQuality(item.quality - 2);
+
 }
 
 exports.conjured = conjured;

@@ -29,9 +29,7 @@ class Shop {
       item.sellIn--;
 
       const rule = rules[item.name] ?? regular;
-      rule(item);
-
-      item.quality = Math.max(item.quality, 0);
+      item.quality = rule(item);
     }
     return this.items;
   }

@@ -1,11 +1,11 @@
-function brie(item) {
-  item.quality = item.quality + 1;
+const { updateQuality } = require("./updateQuality");
 
+function brie(item) {
   if (item.sellIn < 0) {
-    item.quality = item.quality + 1;
+    return updateQuality(item.quality + 2)
   }
 
-  item.quality = Math.min(item.quality, 50);
+  return updateQuality(item.quality + 1)
 }
 
 exports.brie = brie;

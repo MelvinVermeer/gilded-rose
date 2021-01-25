@@ -1,19 +1,19 @@
-function backstagePasses(item) {
-  item.quality = item.quality + 1;
+const { updateQuality } = require("./updateQuality");
 
-  if (item.sellIn < 10) {
-    item.quality = item.quality + 1;
+function backstagePasses(item) {
+  if (item.sellIn < 0) {
+    return 0;
   }
 
   if (item.sellIn < 5) {
-    item.quality = item.quality + 1;
+    return updateQuality(item.quality + 3);
   }
 
-  if (item.sellIn < 0) {
-    item.quality = 0;
+  if (item.sellIn < 10) {
+    return updateQuality(item.quality + 2);
   }
 
-  item.quality = Math.min(item.quality, 50);
+  return updateQuality(item.quality + 1);
 }
 
 exports.backstagePasses = backstagePasses;
